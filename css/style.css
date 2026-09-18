@@ -1,0 +1,1301 @@
+/* ==========================================================================
+   TEKNIC EUCHNER - Main Stylesheet
+   Desktop-focused technical assessment (1440px base artboard)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Color Tokens */
+  --color-primary-red: #C50100;
+  --color-primary-red-hover: #A70100;
+  --color-black: #000000;
+  --color-dark-card: #141414;
+  --color-gray-slate: #646464;
+  --color-gray-light: #F6F6F6;
+  --color-white: #FFFFFF;
+  
+  /* Text Colors */
+  --color-text-main: #000000;
+  --color-text-body: #555555;
+  --color-text-muted: #888888;
+  --color-text-white: #FFFFFF;
+  --color-text-gray: #A0A0A0;
+
+  /* Border Colors */
+  --color-border-light: #E5E5E5;
+  --color-border-dark: rgba(255, 255, 255, 0.12);
+  --color-border-grid: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout Tokens */
+  --site-width: 1440px;
+  --page-padding: 56px;
+  --header-height: 74px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+  min-width: 1200px;
+}
+
+section[id],
+.nav-target {
+  scroll-margin-top: var(--header-height, 74px);
+}
+
+/* Base Container */
+.site-wrapper {
+  width: 100%;
+  max-width: var(--site-width);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+/* ==========================================================================
+   Reusable UI Components
+   ========================================================================== */
+
+/* Section Eyebrow Tag */
+.section-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary-red);
+}
+
+.section-eyebrow.eyebrow-white {
+  color: var(--color-white);
+}
+
+/* Primary Red Solid Button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-red);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-red-hover);
+}
+
+/* ==========================================================================
+   1. Header / Navigation Bar (Height: 74px)
+   ========================================================================== */
+.site-header {
+  height: var(--header-height);
+  background-color: var(--color-black);
+  border-bottom: 1px solid var(--color-border-dark);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding-left: var(--page-padding);
+  padding-right: 0;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header-logo img {
+  height: 25px;
+  width: auto;
+  display: block;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.85;
+}
+
+.dropdown-icon {
+  width: 10px;
+  height: 6px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.header-cta-btn {
+  width: 277px;
+  height: 100%;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   2. Hero Section (Height: 670px)
+   ========================================================================== */
+.hero-section {
+  height: 670px;
+  background-color: var(--color-black);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Horizontal line top at y=108px (x: 0 to 1440px) */
+.hero-line-h-top {
+  position: absolute;
+  top: 108px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #404040;
+}
+
+/* Horizontal line bottom at y=534px (x: 0 to 1107px, connects directly to vertical line 2 at image bottom-left) */
+.hero-line-h-bottom {
+  position: absolute;
+  top: 534px;
+  left: 0;
+  width: 1108px;
+  height: 1px;
+  background-color: #404040;
+}
+
+/* Vertical line 1 at x=830px (full height 670px from top to bottom) */
+.hero-line-v-1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 830px;
+  width: 1px;
+  background-color: #404040;
+}
+
+/* Vertical line 2 at x=1107px (full height 670px from top to bottom, frames photo left edge) */
+.hero-line-v-2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1107px;
+  width: 1px;
+  background-color: #404040;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 830px 277px 333px;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  max-width: var(--site-width);
+  margin: 0 auto;
+}
+
+.hero-content {
+  padding-left: var(--page-padding);
+  padding-right: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 800px;
+  height: 100%;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin-bottom: 24px;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--color-text-gray);
+  max-width: 440px;
+  margin-bottom: 40px;
+}
+
+.hero-cta-btn {
+  width: 240px;
+  height: 52px;
+}
+
+.hero-cell-mid {
+  height: 100%;
+}
+
+.hero-media {
+  position: absolute;
+  grid-column: 1 / -1;
+  left: 1108px;
+  top: 109px;
+  width: 332px;
+  height: 426px;
+  overflow: hidden;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   3. Introduction Section (Height: ~856px)
+   ========================================================================== */
+.intro-section {
+  background-color: var(--color-white);
+  padding: 68px var(--page-padding) 90px var(--page-padding);
+}
+
+.intro-header-grid {
+  display: grid;
+  grid-template-columns: 357px 1fr;
+  column-gap: 31px;
+  align-items: start;
+  margin-bottom: 42px;
+}
+
+.intro-eyebrow-col {
+  padding-top: 4px;
+}
+
+.intro-headline-col {
+  max-width: 780px;
+}
+
+.intro-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text-main);
+}
+
+.intro-title .text-red {
+  color: var(--color-primary-red);
+}
+
+.intro-content-grid {
+  display: grid;
+  grid-template-columns: 357px 427px 1fr;
+  column-gap: 31px;
+  align-items: start;
+}
+
+/* Col 1: Sensors Photo */
+.intro-col-sensors {
+  width: 357px;
+  height: 420px;
+  overflow: hidden;
+  background-color: #EBF2F7;
+}
+
+.intro-col-sensors img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Col 2: Robotic Automation Photo */
+.intro-col-automation {
+  width: 427px;
+  height: 486px;
+  overflow: hidden;
+  background-color: #E8EDF2;
+}
+
+.intro-col-automation img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Col 3: Descriptive Copy & Action */
+.intro-col-copy {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-paragraph {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-text-body);
+  margin-bottom: 24px;
+}
+
+.intro-highlight {
+  color: var(--color-primary-red);
+  font-weight: 600;
+}
+
+.intro-cta-btn {
+  width: 240px;
+  height: 52px;
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+/* ==========================================================================
+   4. Journey / Stats Section (Height: 700px)
+   ========================================================================== */
+.journey-section {
+  height: 700px;
+  position: relative;
+  overflow: hidden;
+  background-image: url('../assets/images/journey-pcb-bg.jpg?v=2');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 var(--page-padding);
+}
+
+.journey-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.72) 100%);
+  z-index: 1;
+}
+
+.journey-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.journey-header {
+  margin-bottom: 38px;
+}
+
+.journey-eyebrow {
+  margin-bottom: 12px;
+}
+
+.journey-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+/* Frosted Glass Statistics Box */
+.stats-frosted-card {
+  width: 100%;
+  background: rgba(18, 18, 18, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-column {
+  padding: 42px 32px 38px 32px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.stat-column:last-child {
+  border-right: none;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 24px;
+}
+
+.stat-icon img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+.stat-number {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.stat-number.stat-number-title {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.stat-label {
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ==========================================================================
+   5. Products Showcase Section
+   ========================================================================== */
+.products-section {
+  background-color: var(--color-white);
+  padding: 90px 0 100px 0;
+}
+
+.products-header-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 var(--page-padding);
+  margin-bottom: 54px;
+}
+
+.products-header-left {
+  max-width: 540px;
+}
+
+.products-header-title {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-main);
+  margin-top: 14px;
+}
+
+.products-header-right {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.products-header-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+}
+
+.products-header-desc + .products-header-desc {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.products-header-btn {
+  width: 240px;
+  height: 52px;
+}
+
+/* 2-Column x 3-Row Product Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  margin: 0;
+}
+
+.product-card {
+  min-height: 490px;
+  padding: 44px 56px 40px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-white);
+  position: relative;
+}
+
+/* Remove right border on right-column cards */
+.product-card:nth-child(2n) {
+  border-right: none;
+}
+
+/* Remove bottom border on last 2 cards */
+.product-card:nth-child(5),
+.product-card:nth-child(6) {
+  border-bottom: none;
+}
+
+.product-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.product-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-red);
+  max-width: 320px;
+  line-height: 1.35;
+}
+
+.product-card-tagline {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-text-main);
+  text-align: right;
+  max-width: 240px;
+  line-height: 1.35;
+}
+
+.product-card-image-wrap {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Card 6: Cable Connectors horizontal position aligned to reference */
+.product-card:nth-child(6) .product-card-image-wrap {
+  justify-content: flex-start;
+  padding-left: 111px;
+}
+
+.product-card-image-wrap img {
+  max-height: 230px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.product-card-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.product-card-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text-body);
+  max-width: 360px;
+}
+
+/* Explore Action Link Button */
+.btn-explore {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-primary-red);
+  height: 40px;
+  text-decoration: none;
+  flex-shrink: 0;
+  background-color: var(--color-white);
+  transition: opacity 0.2s ease;
+}
+
+.btn-explore:hover {
+  opacity: 0.85;
+}
+
+.btn-explore-text {
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-red);
+}
+
+.btn-explore-arrow {
+  width: 40px;
+  height: 100%;
+  background-color: var(--color-primary-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-explore-arrow svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--color-white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   6. Why Teknic Euchner Section
+   ========================================================================== */
+.why-section {
+  background-color: var(--color-gray-light);
+  padding: 66px var(--page-padding) 77px var(--page-padding);
+}
+
+.why-container {
+  display: grid;
+  grid-template-columns: 505px 1fr;
+  column-gap: 160px;
+  align-items: start;
+}
+
+/* Left Column */
+.why-left-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.why-eyebrow {
+  margin-bottom: 34px;
+}
+
+.why-heading {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+  margin-bottom: 34px;
+  max-width: 520px;
+}
+
+.why-desc {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-text-body);
+  margin-bottom: 34px;
+  max-width: 480px;
+}
+
+.why-media {
+  width: 505px;
+  height: 472px;
+  overflow: hidden;
+  background-color: #E2E8F0;
+}
+
+.why-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Right Column: 5 Features */
+.why-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.why-feature-item {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  column-gap: 50px;
+  align-items: center;
+  height: 154px;
+  border-bottom: 1px solid #E4E4E4;
+}
+
+.why-feature-item:last-child {
+  border-bottom: none;
+}
+
+.why-item-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.why-item-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  max-width: 320px;
+}
+
+/* ==========================================================================
+   7. Our Applications Section
+   ========================================================================== */
+.applications-section {
+  background-color: var(--color-white);
+  padding: 70px var(--page-padding) 100px var(--page-padding);
+}
+
+.applications-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 74px;
+}
+
+.applications-header-left {
+  max-width: 700px;
+}
+
+.applications-eyebrow {
+  margin-bottom: 16px;
+}
+
+.applications-heading {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-main);
+}
+
+.applications-header-right {
+  max-width: 480px;
+  padding-bottom: 6px;
+}
+
+.applications-header-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+}
+
+/* 3-Column x 2-Row Application Grid */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 408px);
+  column-gap: 52px;
+  row-gap: 64px;
+  justify-content: space-between;
+}
+
+.application-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.application-card-media {
+  width: 408px;
+  height: 370px;
+  overflow: hidden;
+  background-color: #E8EDF2;
+}
+
+.application-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.application-card-content {
+  padding-top: 24px;
+}
+
+.application-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-primary-red);
+  margin-bottom: 10px;
+}
+
+.application-card-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-text-body);
+}
+
+/* ==========================================================================
+   8. Quality Section (Height: 664px)
+   ========================================================================== */
+.quality-section {
+  background-color: var(--color-gray-slate);
+  height: 664px;
+  position: relative;
+  overflow: hidden;
+  scroll-margin-top: var(--header-height, 74px);
+}
+
+.quality-bg-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.quality-bg-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center left;
+  display: block;
+}
+
+.quality-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  padding: 66px var(--page-padding) 68px var(--page-padding);
+  position: relative;
+  z-index: 10;
+  max-width: var(--site-width);
+  margin: 0 auto;
+}
+
+.quality-left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 650px;
+  position: relative;
+  z-index: 15;
+}
+
+.quality-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-white);
+  margin: 0;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+  z-index: 20;
+}
+
+.quality-manifesto {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: monospace, var(--font-family-base);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 2.0;
+}
+
+.quality-right-col {
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 33px;
+}
+
+.quality-paragraph {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-white);
+  margin: 0;
+}
+
+.quality-right-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+
+.quality-cta-btn {
+  width: 266px;
+  height: 52px;
+  align-self: flex-start;
+}
+
+/* ==========================================================================
+   9. Dealer Section (Height: 646px)
+   ========================================================================== */
+.dealer-section {
+  background-color: var(--color-white);
+  padding: 90px var(--page-padding) 100px var(--page-padding);
+  height: 646px;
+  display: flex;
+  align-items: center;
+}
+
+.dealer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dealer-left-col {
+  max-width: 540px;
+}
+
+.dealer-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-main);
+  margin-bottom: 24px;
+}
+
+.dealer-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  margin-bottom: 34px;
+  max-width: 480px;
+}
+
+.dealer-cta-btn {
+  width: 240px;
+  height: 52px;
+}
+
+.dealer-right-col {
+  width: 452px;
+  height: 452px;
+  flex-shrink: 0;
+}
+
+.dealer-right-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   10. Solution / CTA Section (Height: 460px)
+   ========================================================================== */
+.solution-section {
+  background-color: var(--color-white);
+  padding: 0 var(--page-padding) 100px var(--page-padding);
+}
+
+.solution-container {
+  width: 100%;
+}
+
+.solution-card {
+  background-color: var(--color-dark-card);
+  min-height: 440px;
+  padding: 64px 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0;
+}
+
+.solution-content {
+  max-width: 620px;
+}
+
+.solution-title {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--color-text-white);
+  margin-bottom: 24px;
+}
+
+.solution-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-gray);
+  margin-bottom: 38px;
+  max-width: 560px;
+}
+
+.solution-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.solution-btn-talk {
+  width: 214px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--color-text-white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.solution-btn-talk:hover {
+  border-color: var(--color-white);
+  opacity: 0.9;
+}
+
+.solution-btn-explore {
+  width: 240px;
+  height: 52px;
+}
+
+.solution-media {
+  width: 362px;
+  height: 300px;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.solution-media img {
+  max-height: 250px;
+  max-width: 85%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   11. Giant Brand Typography Section (Height: 452px)
+   ========================================================================== */
+.brand-typography-section {
+  background-color: var(--color-primary-red);
+  height: 452px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--page-padding);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.brand-typography-container {
+  width: 100%;
+  max-width: var(--site-width);
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text-line {
+  font-size: 180px;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: var(--color-text-white);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.brand-text-teknic {
+  text-align: left;
+}
+
+.brand-text-euchner {
+  text-align: left;
+  margin-left: 220px;
+}
+
+/* ==========================================================================
+   12. Main Site Footer (Height: 584px)
+   ========================================================================== */
+.site-footer {
+  background-color: var(--color-primary-red);
+  color: var(--color-text-white);
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 394px 530px 404px;
+  padding: 80px var(--page-padding) 60px var(--page-padding);
+  max-width: var(--site-width);
+  margin: 0 auto;
+}
+
+/* Col 1: Pitch */
+.footer-col-pitch {
+  padding-right: 56px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.footer-pitch-title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--color-text-white);
+  margin-bottom: 18px;
+}
+
+.footer-pitch-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Col 2: Navigation Links Grid */
+.footer-col-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 36px;
+  column-gap: 40px;
+  padding: 0 56px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.footer-link-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-white);
+  margin-bottom: 16px;
+}
+
+.footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-link-list a {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: opacity 0.2s ease;
+}
+
+.footer-link-list a:hover {
+  opacity: 0.8;
+}
+
+/* Col 3: Contact Details & Socials */
+.footer-col-contact {
+  padding-left: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.footer-address {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+}
+
+.footer-contact-link {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.footer-contact-link:hover {
+  opacity: 0.8;
+}
+
+.footer-social-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.footer-social-btn {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-social-btn:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.footer-social-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  color: var(--color-text-white);
+}
+
+/* Footer Bottom Bar */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 32px var(--page-padding);
+  max-width: var(--site-width);
+  margin: 0 auto;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: monospace, var(--font-family-base);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
