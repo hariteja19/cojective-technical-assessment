@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProductFiltering();
   initProductComparison();
   initFaqAccordion();
+  initThemeToggle();
   initInquiryForm();
   initDealerSearch();
   initMobileNav();
@@ -1466,5 +1467,46 @@ function initFaqAccordion() {
       `;
     });
   });
+}
+
+
+/* =========================================================================
+   18. Industrial Blueprint Dark Theme Switcher
+   ========================================================================= */
+
+function initThemeToggle() {
+  const desktopBtn = document.getElementById('themeToggleBtn');
+  const mobileBtn = document.getElementById('mobileThemeToggleBtn');
+  const storageKey = 'teknic-theme';
+
+  function setTheme(theme) {
+    if (theme === 'blueprint') {
+      document.documentElement.setAttribute('data-theme', 'blueprint');
+      localStorage.setItem(storageKey, 'blueprint');
+      if (desktopBtn) desktopBtn.classList.add('is-active');
+      if (mobileBtn) mobileBtn.classList.add('is-active');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem(storageKey, 'editorial');
+      if (desktopBtn) desktopBtn.classList.remove('is-active');
+      if (mobileBtn) mobileBtn.classList.remove('is-active');
+    }
+  }
+
+  // Read saved preference or system preference
+  const savedTheme = localStorage.getItem(storageKey);
+  if (savedTheme === 'blueprint') {
+    setTheme('blueprint');
+  } else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('blueprint');
+  }
+
+  function handleToggle() {
+    const isBlueprint = document.documentElement.getAttribute('data-theme') === 'blueprint';
+    setTheme(isBlueprint ? 'editorial' : 'blueprint');
+  }
+
+  if (desktopBtn) desktopBtn.addEventListener('click', handleToggle);
+  if (mobileBtn) mobileBtn.addEventListener('click', handleToggle);
 }
 

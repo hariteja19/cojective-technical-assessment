@@ -5153,5 +5153,224 @@ body.drawer-open {
   }
 }
 
+/* =========================================================================
+   Industrial Blueprint Dark Theme & Theme Toggle
+   ========================================================================= */
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #FFFFFF;
+  color: var(--color-text-main);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.theme-toggle-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+.theme-icon-moon {
+  display: inline-block;
+}
+
+.mobile-theme-toggle {
+  width: 100%;
+  justify-content: center;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+}
+
+/* Blueprint Dark Theme Overrides */
+[data-theme="blueprint"] {
+  --color-bg-base: #080C14;
+  --color-white: #0E1422;
+  --color-gray-light: #131A2B;
+  --color-gray-slate: #0A0F1A;
+  --color-text-main: #F1F5F9;
+  --color-text-body: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-border-dark: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="blueprint"] body {
+  background-color: #080C14 !important;
+  color: #F1F5F9 !important;
+}
+
+[data-theme="blueprint"] .theme-icon-sun {
+  display: inline-block;
+  stroke: var(--color-accent-gold);
+}
+
+[data-theme="blueprint"] .theme-icon-moon {
+  display: none;
+}
+
+[data-theme="blueprint"] .theme-toggle-btn {
+  background: #131A2B;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #F1F5F9;
+}
+
+[data-theme="blueprint"] .fairway-pill-header {
+  background: rgba(14, 20, 34, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="blueprint"] .nav-link {
+  color: #CBD5E1 !important;
+}
+
+[data-theme="blueprint"] .nav-link:hover {
+  color: var(--color-accent-gold) !important;
+}
+
+[data-theme="blueprint"] .fairway-product-card,
+[data-theme="blueprint"] .fairway-app-card,
+[data-theme="blueprint"] .fairway-dealer-section,
+[data-theme="blueprint"] .fairway-faq-section,
+[data-theme="blueprint"] .faq-accordion-item,
+[data-theme="blueprint"] .faq-tool-card,
+[data-theme="blueprint"] .modal-dialog,
+[data-theme="blueprint"] .mobile-nav-panel {
+  background: #0E1422 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+  color: #F1F5F9 !important;
+}
+
+[data-theme="blueprint"] .fairway-product-visual {
+  background: radial-gradient(circle at center, #161F33 0%, #0E1422 75%) !important;
+}
+
+[data-theme="blueprint"] .product-card-desc,
+[data-theme="blueprint"] .faq-answer-inner p,
+[data-theme="blueprint"] .dealer-address-line,
+[data-theme="blueprint"] .ip-spec-desc {
+  color: #94A3B8 !important;
+}
+
+[data-theme="blueprint"] .product-search-input-wrap input,
+[data-theme="blueprint"] .dealer-search-input-wrap input,
+[data-theme="blueprint"] .inquiry-form input,
+[data-theme="blueprint"] .inquiry-form select,
+[data-theme="blueprint"] .inquiry-form textarea {
+  background: #131A2B !important;
+  color: #F8FAFC !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="blueprint"] .fairway-filter-pill,
+[data-theme="blueprint"] .spec-quicktag-btn,
+[data-theme="blueprint"] .ip-guide-tab {
+  background: #131A2B !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="blueprint"] .fairway-filter-pill.active,
+[data-theme="blueprint"] .ip-guide-tab.active {
+  background: var(--color-accent-gold) !important;
+  border-color: var(--color-accent-gold) !important;
+  color: #080C14 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="blueprint"] .compare-checkbox-pill {
+  background: #161F33 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #CBD5E1 !important;
+}
+
+[data-theme="blueprint"] .blueprint-card,
+[data-theme="blueprint"] .ip-rating-card,
+[data-theme="blueprint"] .compliance-card,
+[data-theme="blueprint"] .dealer-directory-card {
+  background: #131A2B !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="blueprint"] .faq-accordion-header {
+  color: #F1F5F9 !important;
+}
+
+[data-theme="blueprint"] .faq-accordion-icon {
+  background: #161F33 !important;
+}
+
+[data-theme="blueprint"] .faq-accordion-icon svg {
+  stroke: #F1F5F9 !important;
+}
+
+[data-theme="blueprint"] .modal-specs-table th {
+  color: #F1F5F9 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="blueprint"] .modal-specs-table td {
+  color: #94A3B8 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="blueprint"] .modal-tab-pill {
+  background: #131A2B !important;
+  color: #94A3B8 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="blueprint"] .modal-tab-pill.active {
+  background: var(--color-accent-gold) !important;
+  color: #080C14 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="blueprint"] .matrix-spec-name-col,
+[data-theme="blueprint"] .matrix-product-col,
+[data-theme="blueprint"] .matrix-spec-name {
+  background: #131A2B !important;
+  color: #F1F5F9 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="blueprint"] .compare-matrix-scroll-wrap {
+  background: #0E1422 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="blueprint"] .brand-text-line {
+  color: rgba(255, 255, 255, 0.08) !important;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15) !important;
+}
+
+
 
 
