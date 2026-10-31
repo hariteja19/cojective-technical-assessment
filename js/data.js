@@ -17,6 +17,7 @@ window.TEKNIC_DATA = {
       { label: 'ABOUT US', href: '#about', hasDropdown: true },
       { label: 'PRODUCTS', href: '#products', hasDropdown: false },
       { label: 'DEALERS', href: '#dealers', hasDropdown: false },
+      { label: 'TECHNICAL FAQ', href: '#faq', hasDropdown: false },
       { label: 'NEWS & EVENTS', href: '#news', hasDropdown: false },
       { label: 'CONTACT US', href: '#contact', hasDropdown: false }
     ],
@@ -548,6 +549,87 @@ window.TEKNIC_DATA = {
       stockAvailable: 'Full Range In-Stock'
     }
   ],
+
+  // Technical Knowledge Base & Engineering FAQ
+  faq: {
+    eyebrow: 'ENGINEERING KNOWLEDGE BASE',
+    title: 'Frequently Answered Technical Questions',
+    titleHtml: 'Frequently Answered <span class="fairway-serif-italic">Technical</span> Questions',
+    subtitle: 'Direct answers to machine integration, mechanical life cycles, positive opening safety interlocks, and custom multi-switch assemblies.',
+    categories: ['ALL', 'STANDARDS', 'INTEGRATION', 'MECHANICAL', 'LOGISTICS'],
+    items: [
+      {
+        id: 'faq-1',
+        category: 'INTEGRATION',
+        question: 'Can TEKNIC proximity switches directly retrofit standard European inductive sensors?',
+        answer: 'Yes. All TEKNIC inductive proximity sensors adhere strictly to DIN EN 60947-5-2 international dimensional and threading standards (M12 × 1, M18 × 1.5, M30 × 1.5). They feature standard 3-wire DC (Brown +24V, Blue 0V, Black Output) and M12 4-pin quick-disconnect connectors for 100% plug-and-play retrofit.'
+      },
+      {
+        id: 'faq-2',
+        category: 'MECHANICAL',
+        question: 'How do TEKNIC limit switches withstand aggressive coolants, metal swarf, and washdowns?',
+        answer: 'Our industrial switch housings are die-cast from corrosion-resistant GD-AlSi12 aluminium alloy treated with chemical conversion coating. The actuator shafts are shielded with Viton (FKM) double-lip seals impervious to synthetic cutting emulsions, high-pressure washdowns (IP67/IP68), and abrasive metal grinding dust.'
+      },
+      {
+        id: 'faq-3',
+        category: 'STANDARDS',
+        question: 'Are TEKNIC limit switches certified for safety-critical machine interlocks?',
+        answer: 'Yes. Our limit switches feature positive opening operation conforming to IEC / EN 60947-5-1 Annex K. Even in the event of severe contact welding or spring failure, mechanical actuator travel forces the NC contact separation directly, ensuring compliance with ISO 13849-1 and Machinery Directive 2006/42/EC.'
+      },
+      {
+        id: 'faq-4',
+        category: 'MECHANICAL',
+        question: 'Can multiple limit switches be custom-configured for CNC tool-changer axes?',
+        answer: 'Absolutely. We custom manufacture precision multiple limit switches with 2 to 20 switching stations in 8mm, 10mm, 12mm, and 16mm pitch. Plungers can be freely specified as hardened chisel, ball, or roller types with snap-action or slow-action contact elements.'
+      },
+      {
+        id: 'faq-5',
+        category: 'LOGISTICS',
+        question: 'What is the stock availability, dispatch timeline, and warranty across India?',
+        answer: 'All high-runner standard switches, M12 proximity sensors, and connector assemblies are maintained in ready inventory across our 12 Pan-India hubs (Mumbai, Pune, Bengaluru, Chennai, Ahmedabad, Delhi-NCR) for 24-48 hour factory dispatch. All products are backed by our comprehensive 18-month industrial warranty.'
+      },
+      {
+        id: 'faq-6',
+        category: 'INTEGRATION',
+        question: 'How can engineering teams obtain 2D DXF and 3D STEP CAD models?',
+        answer: 'Native 3D STEP models and 2D DXF panel footprints are available for all standard and multiple limit switch series. You can request models directly through our product modal or connect with our application engineering desk with your specific part number.'
+      }
+    ],
+    ipExplainer: {
+      title: 'Ingress Protection (IP Code) Reference Guide',
+      subtitle: 'Click an ingress standard to see protection ratings for your machinery environment:',
+      ratings: [
+        {
+          code: 'IP65',
+          solids: 'Dust-tight (full ingress protection against dust particles)',
+          liquids: 'Water jets (projected by 6.3mm nozzle from any angle at 30 kPa)',
+          environment: 'Control cabinets, assembly lines, standard conveyor drives',
+          recommendedProduct: 'Single Limit Switches (Standard Enclosure)'
+        },
+        {
+          code: 'IP67',
+          solids: 'Dust-tight (vacuum tested against particulate penetration)',
+          liquids: 'Temporary immersion in water up to 1 meter depth for 30 minutes',
+          environment: 'CNC machine tools with flood coolant, automotive paint shops',
+          recommendedProduct: 'Precision Single & Multiple Limit Switches'
+        },
+        {
+          code: 'IP68',
+          solids: 'Dust-tight hermetically sealed enclosure',
+          liquids: 'Continuous submersion under pressure (up to 3 meters depth)',
+          environment: 'Outdoor steel rolling mills, underwater pumping, harsh chemical zones',
+          recommendedProduct: 'Inductive Proximity Switches (IP68 Submersible)'
+        },
+        {
+          code: 'IP69K',
+          solids: 'Dust-tight high-density sealed housing',
+          liquids: 'High-pressure (100 bar) high-temperature (+80°C) steam cleaning',
+          environment: 'Food & beverage processing, pharmaceutical sterile washdowns',
+          recommendedProduct: 'Stainless Steel Inductive & Magnetic Safety Switches'
+        }
+      ]
+    }
+  },
 
   // Solution CTA Section
   solution: {

@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProductQuickView();
   initProductFiltering();
   initProductComparison();
+  initFaqAccordion();
   initInquiryForm();
   initDealerSearch();
   initMobileNav();
@@ -67,6 +68,7 @@ function renderApp() {
     comp.renderWhy(data.why),
     comp.renderApplications(data.applications),
     comp.renderQuality(data.quality),
+    comp.renderFaq(data.faq),
     comp.renderDealer(data.dealer),
     comp.renderSolution(data.solution),
     comp.renderBrandTypography(data.brand),
@@ -1356,5 +1358,113 @@ function initProductComparison() {
       });
     });
   }
+}
+
+
+/* =========================================================================
+   17. Technical Knowledge Base & Engineering FAQ Accordion
+   ========================================================================= */
+
+function initFaqAccordion() {
+  const faqSection = document.getElementById('faq');
+  if (!faqSection) return;
+
+  const accordionItems = faqSection.querySelectorAll('.faq-accordion-item');
+  const catPills = faqSection.querySelectorAll('.faq-cat-pill');
+  const ipTabs = faqSection.querySelectorAll('.ip-guide-tab');
+  const ipDetailsContainer = document.getElementById('ipGuideDetails');
+  const ratings = (window.TEKNIC_DATA && window.TEKNIC_DATA.faq && window.TEKNIC_DATA.faq.ipExplainer && window.TEKNIC_DATA.faq.ipExplainer.ratings) || [];
+
+  // Accordion Toggle
+  accordionItems.forEach(item => {
+    const header = item.querySelector('.faq-accordion-header');
+    const panel = item.querySelector('.faq-accordion-panel');
+    if (!header || !panel) return;
+
+    header.addEventListener('click', () => {
+      const isOpen = panel.classList.contains('is-open');
+
+      // Close all other panels in accordion
+      accordionItems.forEach(otherItem => {
+        const otherHeader = otherItem.querySelector('.faq-accordion-header');
+        const otherPanel = otherItem.querySelector('.faq-accordion-panel');
+        if (otherPanel && otherPanel !== panel) {
+          otherPanel.classList.remove('is-open');
+          otherPanel.style.display = 'none';
+          if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      if (isOpen) {
+        panel.classList.remove('is-open');
+        panel.style.display = 'none';
+        header.setAttribute('aria-expanded', 'false');
+      } else {
+        panel.classList.add('is-open');
+        panel.style.display = 'block';
+        header.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Category Filtering
+  catPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      catPills.forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-selected', 'false');
+      });
+      pill.classList.add('active');
+      pill.setAttribute('aria-selected', 'true');
+
+      const filterCat = pill.getAttribute('data-faq-cat');
+
+      accordionItems.forEach(item => {
+        const itemCat = item.getAttribute('data-faq-category');
+        if (filterCat === 'all' || itemCat === filterCat) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Interactive IP Guide Tabs
+  ipTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      ipTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const code = tab.getAttribute('data-ip-code');
+      const rating = ratings.find(r => r.code === code);
+      if (!rating || !ipDetailsContainer) return;
+
+      ipDetailsContainer.innerHTML = `
+        <div class="ip-rating-card">
+          <div class="ip-card-top">
+            <span class="ip-large-code">${rating.code}</span>
+            <span class="ip-status-badge">INDUSTRIAL GRADE</span>
+          </div>
+          <div class="ip-spec-row">
+            <span class="ip-spec-label">Particulates (Dust):</span>
+            <span class="ip-spec-desc">${rating.solids}</span>
+          </div>
+          <div class="ip-spec-row">
+            <span class="ip-spec-label">Fluids (Coolant/Water):</span>
+            <span class="ip-spec-desc">${rating.liquids}</span>
+          </div>
+          <div class="ip-spec-row">
+            <span class="ip-spec-label">Ideal Operating Machine:</span>
+            <span class="ip-spec-desc">${rating.environment}</span>
+          </div>
+          <div class="ip-spec-recommend">
+            <span class="recommend-label">TEKNIC Recommended Series:</span>
+            <strong class="recommend-product">${rating.recommendedProduct}</strong>
+          </div>
+        </div>
+      `;
+    });
+  });
 }
 

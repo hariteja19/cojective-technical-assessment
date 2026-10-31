@@ -438,6 +438,110 @@ window.TEKNIC_COMPONENTS = {
   },
 
   /**
+   * 8b. Technical Knowledge Base & Engineering FAQ Component
+   */
+  renderFaq(data) {
+    if (!data) return '';
+
+    const categoryTabsHtml = data.categories.map((cat, idx) => `
+      <button class="fairway-filter-pill faq-cat-pill ${idx === 0 ? 'active' : ''}" data-faq-cat="${cat.toLowerCase()}" role="tab" aria-selected="${idx === 0 ? 'true' : 'false'}">
+        ${cat}
+      </button>
+    `).join('');
+
+    const accordionItemsHtml = data.items.map((item, idx) => `
+      <div class="faq-accordion-item" data-faq-category="${item.category.toLowerCase()}">
+        <button class="faq-accordion-header" aria-expanded="${idx === 0 ? 'true' : 'false'}" aria-controls="faq-ans-${item.id}">
+          <span class="faq-question-text">${item.question}</span>
+          <span class="faq-accordion-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </span>
+        </button>
+        <div class="faq-accordion-panel ${idx === 0 ? 'is-open' : ''}" id="faq-ans-${item.id}" ${idx === 0 ? '' : 'style="display:none;"'}>
+          <div class="faq-answer-inner">
+            <p>${item.answer}</p>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    const ipRatingsHtml = (data.ipExplainer && data.ipExplainer.ratings) ? data.ipExplainer.ratings.map((r, idx) => `
+      <button class="ip-guide-tab ${idx === 1 ? 'active' : ''}" data-ip-code="${r.code}">
+        ${r.code}
+      </button>
+    `).join('') : '';
+
+    const firstRating = (data.ipExplainer && data.ipExplainer.ratings) ? data.ipExplainer.ratings[1] : null;
+
+    return `
+      <section class="faq-section fairway-faq-section" id="faq" aria-labelledby="faq-heading">
+        <div class="faq-container">
+          <div class="faq-header-center">
+            <span class="section-eyebrow">${data.eyebrow}</span>
+            <h2 class="faq-title fairway-section-title" id="faq-heading">${data.titleHtml || data.title}</h2>
+            <p class="faq-subtitle">${data.subtitle}</p>
+
+            <div class="faq-category-pills" role="tablist" aria-label="Filter FAQ by engineering topic">
+              ${categoryTabsHtml}
+            </div>
+          </div>
+
+          <div class="faq-main-layout">
+            <div class="faq-accordion-list" id="faqAccordionList">
+              ${accordionItemsHtml}
+            </div>
+
+            <div class="faq-tool-card" id="ipExplainerCard">
+              <div class="ip-tool-header">
+                <span class="ip-tool-badge">ENGINEERING REFERENCE</span>
+                <h3 class="ip-tool-title">Ingress Protection (IP) Explainer</h3>
+                <p class="ip-tool-sub">Select standard to evaluate dust &amp; liquid sealing requirements:</p>
+              </div>
+
+              <div class="ip-guide-tabs" role="group" aria-label="IP standard selection">
+                ${ipRatingsHtml}
+              </div>
+
+              <div class="ip-guide-details" id="ipGuideDetails">
+                ${firstRating ? `
+                  <div class="ip-rating-card">
+                    <div class="ip-card-top">
+                      <span class="ip-large-code">${firstRating.code}</span>
+                      <span class="ip-status-badge">INDUSTRIAL GRADE</span>
+                    </div>
+                    <div class="ip-spec-row">
+                      <span class="ip-spec-label">Particulates (Dust):</span>
+                      <span class="ip-spec-desc">${firstRating.solids}</span>
+                    </div>
+                    <div class="ip-spec-row">
+                      <span class="ip-spec-label">Fluids (Coolant/Water):</span>
+                      <span class="ip-spec-desc">${firstRating.liquids}</span>
+                    </div>
+                    <div class="ip-spec-row">
+                      <span class="ip-spec-label">Ideal Operating Machine:</span>
+                      <span class="ip-spec-desc">${firstRating.environment}</span>
+                    </div>
+                    <div class="ip-spec-recommend">
+                      <span class="recommend-label">TEKNIC Recommended Series:</span>
+                      <strong class="recommend-product">${firstRating.recommendedProduct}</strong>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="faq-card-footer">
+                <button class="btn-primary fairway-pill-btn ip-cta-btn" data-action="open-inquiry">
+                  ASK AN APPLICATION ENGINEER
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  },
+
+  /**
    * 9. Dealer Section Component
    */
   renderDealer(data) {
