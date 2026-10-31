@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModalSystem();
   initProductQuickView();
   initProductFiltering();
+  initProductComparison();
   initInquiryForm();
   initDealerSearch();
   initMobileNav();
@@ -75,7 +76,9 @@ function renderApp() {
     comp.renderMobileDrawer(data.header),
     comp.renderProductModal(),
     comp.renderInquiryModal(),
-    comp.renderDealerModal(data.dealersList)
+    comp.renderDealerModal(data.dealersList),
+    comp.renderCompareDock(),
+    comp.renderCompareModal()
   ].join('');
 
   app.innerHTML = markup;
@@ -227,6 +230,9 @@ function initProductQuickView() {
             <button class="btn-primary modal-inquire-btn" id="modalInquireBtn" data-product-name="${product.title}">
               INQUIRE ABOUT THIS PRODUCT
             </button>
+            <button class="btn-outline modal-print-btn" id="modalPrintBtn" title="Print or save PDF engineering datasheet">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:middle;margin-right:6px;"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> PRINT DATASHEET
+            </button>
             <button class="btn-outline modal-secondary-btn" data-close-modal="productModal">
               CLOSE SPECIFICATION
             </button>
@@ -234,6 +240,14 @@ function initProductQuickView() {
         </div>
       </div>
     `;
+
+    // Hook print datasheet button
+    const printBtn = document.getElementById('modalPrintBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+    }
 
     // Hook product-specific inquiry button
     const inqBtn = document.getElementById('modalInquireBtn');
@@ -269,12 +283,61 @@ function initProductFiltering() {
   const filterTabs = document.querySelectorAll('.filter-tab');
   const cards = document.querySelectorAll('.product-card');
   const countEl = document.getElementById('productFilterCount');
+  const searchInput = document.getElementById('productSearchInput');
+  const searchClear = document.getElementById('productSearchClear');
+  const emptyState = document.getElementById('productsEmptyState');
+  const emptyQueryEl = document.getElementById('productEmptyQuery');
+  const resetBtn = document.getElementById('resetProductFilterBtn');
 
-  if (filterTabs.length === 0 || cards.length === 0) return;
+  if (cards.length === 0) return;
 
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function applyFilters() {
+    const terms = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const category = card.getAttribute('data-category') || '';
+      const searchData = (card.getAttribute('data-search-terms') || '').toLowerCase();
+
+      const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+      const matchesSearch = terms.length === 0 || terms.every(term => searchData.includes(term));
+
+      if (matchesCategory && matchesSearch) {
+        card.classList.remove('is-hidden');
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.classList.add('is-hidden');
+        card.style.display = 'none';
+      }
+    });
+
+    if (countEl) {
+      countEl.textContent = visibleCount;
+    }
+
+    if (searchClear) {
+      searchClear.style.display = searchQuery ? 'flex' : 'none';
+    }
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.style.display = 'flex';
+        if (emptyQueryEl) {
+          emptyQueryEl.textContent = searchQuery || (activeCategory !== 'all' ? activeCategory : 'selected filters');
+        }
+      } else {
+        emptyState.style.display = 'none';
+      }
+    }
+  }
+
+  // Category Tab Selection
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Set active tab state
       filterTabs.forEach(t => {
         t.classList.remove('active');
         t.setAttribute('aria-selected', 'false');
@@ -282,31 +345,45 @@ function initProductFiltering() {
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
 
-      const filterValue = tab.getAttribute('data-category-filter');
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
-          card.classList.remove('is-hidden');
-          card.style.display = '';
-          visibleCount++;
-        } else {
-          card.classList.add('is-hidden');
-          // Wait for transition before hiding completely
-          setTimeout(() => {
-            if (card.classList.contains('is-hidden')) {
-              card.style.display = 'none';
-            }
-          }, 250);
-        }
-      });
-
-      if (countEl) {
-        countEl.textContent = visibleCount;
-      }
+      activeCategory = tab.getAttribute('data-category-filter') || 'all';
+      applyFilters();
     });
   });
+
+  // Real-Time Keyword & Parameter Search
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      applyFilters();
+    });
+  }
+
+  if (searchClear) {
+    searchClear.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      searchQuery = '';
+      applyFilters();
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      searchQuery = '';
+
+      activeCategory = 'all';
+      filterTabs.forEach(t => {
+        const isAll = t.getAttribute('data-category-filter') === 'all';
+        t.classList.toggle('active', isAll);
+        t.setAttribute('aria-selected', isAll ? 'true' : 'false');
+      });
+
+      applyFilters();
+    });
+  }
 }
 
 
@@ -907,3 +984,218 @@ function initHeroParallax() {
     if (discoveryCard) discoveryCard.style.transform = '';
   });
 }
+
+
+/* =========================================================================
+   16. Interactive Product Side-by-Side Comparison Matrix
+   ========================================================================= */
+
+function initProductComparison() {
+  const dock = document.getElementById('compareDock');
+  const countPill = document.getElementById('compareCountPill');
+  const chipsContainer = document.getElementById('compareDockChips');
+  const openBtn = document.getElementById('openCompareModalBtn');
+  const clearBtn = document.getElementById('clearCompareBtn');
+  const matrixWrap = document.getElementById('compareMatrixScrollWrap');
+
+  if (!dock) return;
+
+  const comparedIds = new Set();
+  const products = (window.TEKNIC_DATA && window.TEKNIC_DATA.products && window.TEKNIC_DATA.products.items) || [];
+
+  function updateDock() {
+    const count = comparedIds.size;
+    if (countPill) countPill.textContent = count;
+
+    if (count > 0) {
+      dock.classList.add('is-visible');
+    } else {
+      dock.classList.remove('is-visible');
+    }
+
+    if (chipsContainer) {
+      const selectedProducts = products.filter(p => comparedIds.has(p.id));
+      chipsContainer.innerHTML = selectedProducts.map(p => `
+        <div class="compare-dock-chip">
+          <img src="${p.image}" alt="${p.title}" class="compare-chip-thumb">
+          <span class="compare-chip-title">${p.title}</span>
+          <button type="button" class="compare-chip-remove" data-remove-compare="${p.id}" aria-label="Remove ${p.title}">&times;</button>
+        </div>
+      `).join('');
+    }
+
+    // Sync card checkboxes
+    document.querySelectorAll('.compare-card-checkbox').forEach(cb => {
+      const id = cb.getAttribute('data-product-id');
+      cb.checked = comparedIds.has(id);
+    });
+  }
+
+  // Card checkbox change event delegation
+  document.addEventListener('change', (e) => {
+    if (e.target && e.target.classList.contains('compare-card-checkbox')) {
+      const id = e.target.getAttribute('data-product-id');
+      if (e.target.checked) {
+        if (comparedIds.size >= 3) {
+          alert('You can compare a maximum of 3 products side-by-side.');
+          e.target.checked = false;
+          return;
+        }
+        comparedIds.add(id);
+      } else {
+        comparedIds.delete(id);
+      }
+      updateDock();
+    }
+  });
+
+  // Remove chip click
+  if (chipsContainer) {
+    chipsContainer.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest('[data-remove-compare]');
+      if (removeBtn) {
+        const id = removeBtn.getAttribute('data-remove-compare');
+        comparedIds.delete(id);
+        updateDock();
+      }
+    });
+  }
+
+  // Clear all
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      comparedIds.clear();
+      updateDock();
+    });
+  }
+
+  // Open comparison modal
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      if (comparedIds.size === 0) return;
+      renderComparisonMatrix();
+      openModal('compareModal');
+    });
+  }
+
+  function renderComparisonMatrix() {
+    if (!matrixWrap) return;
+    const selected = products.filter(p => comparedIds.has(p.id));
+
+    if (selected.length === 0) {
+      closeModal('compareModal');
+      return;
+    }
+
+    // Extract all unique spec keys across selected products
+    const allSpecKeys = [];
+    selected.forEach(p => {
+      if (p.specs) {
+        Object.keys(p.specs).forEach(k => {
+          if (!allSpecKeys.includes(k)) allSpecKeys.push(k);
+        });
+      }
+    });
+
+    const headerHtml = `
+      <tr>
+        <th class="matrix-spec-name-col">Parameter / Specification</th>
+        ${selected.map(p => `
+          <th class="matrix-product-col">
+            <div class="matrix-card-header">
+              <button class="matrix-remove-item" data-matrix-remove="${p.id}" title="Remove from comparison">&times;</button>
+              <div class="matrix-thumb-wrap">
+                <img src="${p.image}" alt="${p.title}">
+              </div>
+              <span class="matrix-category-badge">${p.categoryLabel || 'Control Gear'}</span>
+              <h4 class="matrix-prod-title">${p.title}</h4>
+              <p class="matrix-prod-tagline">${p.tagline}</p>
+            </div>
+          </th>
+        `).join('')}
+      </tr>
+    `;
+
+    // Highlights row
+    const highlightsRowHtml = `
+      <tr class="matrix-row-highlight">
+        <td class="matrix-spec-name">Key Engineering Highlights</td>
+        ${selected.map(p => `
+          <td>
+            <div class="matrix-specs-pills">
+              ${(p.quickSpecs || ['German Engineering', 'IP67', 'Long Life']).map(qs => `<span class="quick-spec-pill">${qs}</span>`).join('')}
+            </div>
+          </td>
+        `).join('')}
+      </tr>
+    `;
+
+    // Dynamic specs rows
+    const specsRowsHtml = allSpecKeys.map(key => `
+      <tr>
+        <td class="matrix-spec-name">${key}</td>
+        ${selected.map(p => `
+          <td class="matrix-spec-val">${(p.specs && p.specs[key]) ? p.specs[key] : '<span class="matrix-na">—</span>'}</td>
+        `).join('')}
+      </tr>
+    `).join('');
+
+    // Action button row
+    const actionRowHtml = `
+      <tr class="matrix-row-actions">
+        <td class="matrix-spec-name">Next Step</td>
+        ${selected.map(p => `
+          <td>
+            <button class="btn-primary fairway-pill-btn matrix-inquire-btn" data-inquire-product="${p.title}">
+              REQUEST QUOTE
+            </button>
+          </td>
+        `).join('')}
+      </tr>
+    `;
+
+    matrixWrap.innerHTML = `
+      <table class="compare-matrix-table">
+        <thead>
+          ${headerHtml}
+        </thead>
+        <tbody>
+          ${highlightsRowHtml}
+          ${specsRowsHtml}
+          ${actionRowHtml}
+        </tbody>
+      </table>
+    `;
+
+    // Hook matrix remove buttons
+    matrixWrap.querySelectorAll('[data-matrix-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-matrix-remove');
+        comparedIds.delete(id);
+        updateDock();
+        renderComparisonMatrix();
+      });
+    });
+
+    // Hook quote buttons
+    matrixWrap.querySelectorAll('[data-inquire-product]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const title = btn.getAttribute('data-inquire-product');
+        closeModal('compareModal');
+        openModal('inquiryModal');
+
+        const select = document.getElementById('inqProduct');
+        if (select) {
+          for (let i = 0; i < select.options.length; i++) {
+            if (title.toLowerCase().includes(select.options[i].text.toLowerCase()) ||
+                select.options[i].text.toLowerCase().includes(title.toLowerCase())) {
+              select.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      });
+    });
+  }
+}
+

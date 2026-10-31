@@ -239,30 +239,43 @@ window.TEKNIC_COMPONENTS = {
       </button>
     `).join('');
 
-    const cardsHtml = data.items.map(item => `
-      <article class="product-card fairway-product-card" data-product-id="${item.id}" data-category="${item.category}" data-action="open-product-modal" role="button" tabindex="0" aria-label="View specifications for ${item.title}">
-        <div class="product-card-top">
-          <span class="fairway-card-badge">${item.categoryLabel || 'PRECISION CONTROL'}</span>
-          <span class="product-card-tagline">${item.tagline}</span>
-        </div>
-        
-        <div class="product-card-image-wrap fairway-product-visual" data-action="open-product-modal" data-product-id="${item.id}" title="Click to view full technical specifications">
-          <img src="${item.image}" alt="${item.imageAlt}">
-        </div>
+    const cardsHtml = data.items.map(item => {
+      const specsValues = Object.entries(item.specs || {}).map(([k, v]) => `${k} ${v}`).join(' ');
+      const quickSpecsStr = (item.quickSpecs || []).join(' ');
+      const searchTerms = `${item.title} ${item.tagline} ${item.description} ${item.categoryLabel} ${item.category} ${quickSpecsStr} ${specsValues}`.toLowerCase();
 
-        <div class="product-card-bottom fairway-card-bottom">
-          <div class="fairway-card-info">
-            <h3 class="product-card-title">${item.title}</h3>
-            <p class="product-card-desc">${item.description}</p>
+      return `
+        <article class="product-card fairway-product-card" data-product-id="${item.id}" data-category="${item.category}" data-search-terms="${searchTerms.replace(/"/g, '&quot;')}" data-action="open-product-modal" role="button" tabindex="0" aria-label="View specifications for ${item.title}">
+          <div class="product-card-top">
+            <span class="fairway-card-badge">${item.categoryLabel || 'PRECISION CONTROL'}</span>
+            <label class="compare-toggle-label" onclick="event.stopPropagation()" title="Select to compare specs side-by-side">
+              <input type="checkbox" class="compare-card-checkbox" data-product-id="${item.id}" aria-label="Compare ${item.title}">
+              <span class="compare-checkbox-pill">
+                <svg viewBox="0 0 24 24" class="compare-icon-add" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg viewBox="0 0 24 24" class="compare-icon-check" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span class="compare-text">Compare</span>
+              </span>
+            </label>
           </div>
-          <button class="btn-circle-arrow" data-action="open-product-modal" data-product-id="${item.id}" aria-label="Explore and view technical specs for ${item.title}" title="View Technical Specs">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </article>
-    `).join('');
+          
+          <div class="product-card-image-wrap fairway-product-visual" data-action="open-product-modal" data-product-id="${item.id}" title="Click to view full technical specifications">
+            <img src="${item.image}" alt="${item.imageAlt}">
+          </div>
+
+          <div class="product-card-bottom fairway-card-bottom">
+            <div class="fairway-card-info">
+              <h3 class="product-card-title">${item.title}</h3>
+              <p class="product-card-desc">${item.description}</p>
+            </div>
+            <button class="btn-circle-arrow" data-action="open-product-modal" data-product-id="${item.id}" aria-label="Explore and view technical specs for ${item.title}" title="View Technical Specs">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </article>
+      `;
+    }).join('');
 
     return `
       <section class="products-section fairway-products-section" id="products" aria-labelledby="products-heading">
@@ -277,11 +290,23 @@ window.TEKNIC_COMPONENTS = {
           </div>
         </div>
 
-        <!-- Fairway Pill Filter Bar -->
+        <!-- Fairway Pill Filter & Real-Time Parameter Search Bar -->
         <div class="product-filter-bar fairway-filter-bar">
-          <div class="filter-tabs fairway-pill-tabs" role="tablist" aria-label="Filter products by industrial category">
-            ${filterTabsHtml}
+          <div class="filter-controls-left">
+            <div class="filter-tabs fairway-pill-tabs" role="tablist" aria-label="Filter products by industrial category">
+              ${filterTabsHtml}
+            </div>
+
+            <div class="product-search-input-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="productSearchInput" placeholder="Search spec (e.g. IP68, M12, 230V, snap)..." aria-label="Search products by specification">
+              <button class="search-clear-btn" id="productSearchClear" aria-label="Clear search" style="display: none;">&times;</button>
+            </div>
           </div>
+
           <div class="product-filter-status fairway-filter-status" id="productFilterStatus">
             Showing <strong id="productFilterCount">${data.items.length}</strong> Precision Products
           </div>
@@ -289,6 +314,19 @@ window.TEKNIC_COMPONENTS = {
 
         <div class="products-grid fairway-products-grid" id="productsGrid">
           ${cardsHtml}
+
+          <!-- Empty State -->
+          <div class="products-empty-state" id="productsEmptyState" style="display: none;">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h4 class="empty-state-title">No matching control gear found</h4>
+            <p class="empty-state-desc">We couldn't find any products matching "<strong id="productEmptyQuery"></strong>". Our engineering specialists custom manufacture gear to your exact parameters.</p>
+            <div class="empty-state-actions">
+              <button class="btn-primary fairway-pill-btn" id="resetProductFilterBtn">CLEAR SEARCH</button>
+              <button class="btn-outline fairway-pill-btn-outline" data-action="open-inquiry">REQUEST CUSTOM SPEC</button>
+            </div>
+          </div>
         </div>
       </section>
     `;
@@ -735,6 +773,59 @@ window.TEKNIC_COMPONENTS = {
               <p class="empty-state-desc">We couldn't find any distribution partners matching "<strong id="dealerEmptyQuery"></strong>". Our central engineering desk provides direct factory dispatch to your location.</p>
               <button class="btn-primary fairway-pill-btn empty-state-cta" data-action="open-inquiry">TALK TO CENTRAL ENGINEERING</button>
             </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  /**
+   * 17. Floating Product Comparison Dock
+   */
+  renderCompareDock() {
+    return `
+      <div class="compare-floating-dock" id="compareDock" role="region" aria-label="Product comparison panel">
+        <div class="compare-dock-inner">
+          <div class="compare-dock-info">
+            <span class="compare-count-pill" id="compareCountPill">0</span>
+            <span class="compare-dock-label">Selected for Side-by-Side Review (Max 3)</span>
+          </div>
+          <div class="compare-dock-chips" id="compareDockChips">
+            <!-- Chips rendered here -->
+          </div>
+          <div class="compare-dock-actions">
+            <button class="btn-primary fairway-pill-btn compare-btn-submit" id="openCompareModalBtn">
+              COMPARE SPECS
+            </button>
+            <button class="compare-clear-btn" id="clearCompareBtn" title="Clear all selections">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  /**
+   * 18. Product Comparison Modal
+   */
+  renderCompareModal() {
+    return `
+      <div class="app-modal" id="compareModal" aria-hidden="true" role="dialog" aria-labelledby="compareModalTitle">
+        <div class="modal-backdrop" data-close-modal="compareModal"></div>
+        <div class="modal-dialog modal-compare-dialog fairway-modal-dialog">
+          <button class="modal-close-btn" data-close-modal="compareModal" aria-label="Close modal">&times;</button>
+          
+          <div class="compare-modal-header">
+            <span class="section-eyebrow">EQUIPMENT BENCHMARK</span>
+            <h2 class="compare-modal-title" id="compareModalTitle">Side-by-Side Specification Matrix</h2>
+            <p class="compare-modal-desc">
+              Direct technical parameter comparison for industrial machinery engineers and panel builders.
+            </p>
+          </div>
+
+          <div class="compare-matrix-scroll-wrap" id="compareMatrixScrollWrap">
+            <!-- Dynamic Side-by-Side Table -->
           </div>
         </div>
       </div>
