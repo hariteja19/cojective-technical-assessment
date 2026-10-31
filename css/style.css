@@ -2093,6 +2093,204 @@ body.drawer-open {
   font-family: monospace, var(--font-family-base);
 }
 
+/* Modal Engineering Sub-Tabs */
+.modal-spec-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 8px;
+  overflow-x: auto;
+}
+
+.modal-tab-pill {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #F8F9FA;
+  color: var(--color-text-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.modal-tab-pill:hover {
+  background: #FFFFFF;
+  color: var(--color-text-main);
+  border-color: var(--color-text-main);
+}
+
+.modal-tab-pill.active {
+  background: var(--color-text-main);
+  color: #FFFFFF;
+  border-color: var(--color-text-main);
+}
+
+.modal-tab-pane {
+  min-height: 220px;
+  margin-bottom: 24px;
+}
+
+/* Tab 2: Wiring Schematic Card */
+.schematic-diagram-card {
+  background: #141824;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.schematic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.schematic-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-gold);
+}
+
+.schematic-standard {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+}
+
+.schematic-graphic {
+  background: #0E121C;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.schematic-svg {
+  width: 100%;
+  max-height: 120px;
+  display: block;
+}
+
+.schematic-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.schematic-notes strong {
+  color: #FFFFFF;
+}
+
+/* Tab 3: Dimensions & CAD Blueprint Card */
+.blueprint-card {
+  background: #FAF9F6;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.blueprint-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 20px;
+  margin-bottom: 18px;
+}
+
+.blueprint-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bp-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bp-val {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.blueprint-download-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cad-ready-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-accent-gold);
+  background: rgba(197, 160, 89, 0.12);
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.cad-request-btn {
+  font-size: 11px;
+  padding: 8px 16px;
+}
+
+/* Tab 4: Compliance Grid */
+.compliance-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.compliance-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.comp-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(14, 159, 110, 0.12);
+  color: #0E9F6E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.compliance-card h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.compliance-card p {
+  font-size: 11.5px;
+  color: var(--color-text-body);
+  line-height: 1.45;
+  margin: 0;
+}
+
 .modal-product-actions {
   display: flex;
   align-items: center;
@@ -3609,6 +3807,55 @@ body.drawer-open {
 .fairway-filter-status strong {
   color: var(--color-text-main);
   font-weight: 700;
+}
+
+/* Engineering Quick-Parameter Filter Chips */
+.product-spec-quicktags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 0 28px 0;
+  margin-top: -12px;
+}
+
+.quicktags-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-right: 4px;
+}
+
+.spec-quicktag-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #F4F5F7;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spec-quicktag-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--color-accent-gold);
+  color: var(--color-text-main);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.spec-quicktag-btn.active {
+  background: var(--color-accent-gold);
+  border-color: var(--color-accent-gold);
+  color: #111111;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+  transform: translateY(-1px);
 }
 
 /* Products Empty State */

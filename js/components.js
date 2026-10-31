@@ -312,6 +312,17 @@ window.TEKNIC_COMPONENTS = {
           </div>
         </div>
 
+        <!-- Engineering Quick-Parameter Filter Chips -->
+        <div class="product-spec-quicktags" role="group" aria-label="Quick filter by engineering parameters">
+          <span class="quicktags-label">Quick Facets:</span>
+          <button class="spec-quicktag-btn" data-tag-filter="IP67">IP67 Waterproof</button>
+          <button class="spec-quicktag-btn" data-tag-filter="IP68">IP68 Submersible</button>
+          <button class="spec-quicktag-btn" data-tag-filter="24V">24V DC</button>
+          <button class="spec-quicktag-btn" data-tag-filter="230V">230V AC</button>
+          <button class="spec-quicktag-btn" data-tag-filter="Snap">Snap-Action</button>
+          <button class="spec-quicktag-btn" data-tag-filter="M12">M12 Standard</button>
+        </div>
+
         <div class="products-grid fairway-products-grid" id="productsGrid">
           ${cardsHtml}
 

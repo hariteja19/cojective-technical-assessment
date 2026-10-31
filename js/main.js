@@ -217,13 +217,130 @@ function initProductQuickView() {
           <p class="modal-product-tagline">${product.tagline}</p>
           <p class="modal-product-desc">${product.description}</p>
 
-          <div class="modal-specs-table-wrap">
-            <h4 class="specs-table-title">Engineering Parameters</h4>
-            <table class="modal-specs-table">
-              <tbody>
-                ${specsRowsHtml}
-              </tbody>
-            </table>
+          <!-- Interactive Engineering Sub-Tabs -->
+          <div class="modal-spec-tabs" role="tablist" aria-label="Product Engineering Details">
+            <button class="modal-tab-pill active" data-spec-tab="params" role="tab" aria-selected="true">Parameters</button>
+            <button class="modal-tab-pill" data-spec-tab="wiring" role="tab" aria-selected="false">Wiring &amp; Pinout</button>
+            <button class="modal-tab-pill" data-spec-tab="dimensions" role="tab" aria-selected="false">CAD &amp; Mounting</button>
+            <button class="modal-tab-pill" data-spec-tab="standards" role="tab" aria-selected="false">Compliance</button>
+          </div>
+
+          <!-- Tab Pane 1: Parameters Table -->
+          <div class="modal-tab-pane active" id="pane-params">
+            <div class="modal-specs-table-wrap">
+              <table class="modal-specs-table">
+                <tbody>
+                  ${specsRowsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab Pane 2: Wiring Schematic -->
+          <div class="modal-tab-pane" id="pane-wiring" style="display: none;">
+            <div class="schematic-diagram-card">
+              <div class="schematic-header">
+                <span class="schematic-badge">ELECTRICAL CONTACT SCHEMATIC</span>
+                <span class="schematic-standard">IEC 60947-5-1</span>
+              </div>
+              <div class="schematic-graphic">
+                <svg viewBox="0 0 380 120" class="schematic-svg" aria-label="Electrical wiring diagram">
+                  <!-- Terminals 11-12 NC -->
+                  <line x1="30" y1="36" x2="100" y2="36" stroke="#C5A059" stroke-width="2.5" />
+                  <circle cx="100" cy="36" r="4.5" fill="#111111" stroke="#C5A059" stroke-width="2" />
+                  <line x1="100" y1="32" x2="160" y2="18" stroke="#C5A059" stroke-width="2.5" />
+                  <circle cx="160" cy="36" r="4.5" fill="#111111" stroke="#C5A059" stroke-width="2" />
+                  <line x1="160" y1="36" x2="230" y2="36" stroke="#C5A059" stroke-width="2.5" />
+                  <text x="25" y="24" fill="#888" font-size="11" font-family="monospace">11 (NC)</text>
+                  <text x="235" y="24" fill="#888" font-size="11" font-family="monospace">12 (NC)</text>
+
+                  <!-- Terminals 13-14 NO -->
+                  <line x1="30" y1="84" x2="100" y2="84" stroke="#C5A059" stroke-width="2.5" />
+                  <circle cx="100" cy="84" r="4.5" fill="#111111" stroke="#C5A059" stroke-width="2" />
+                  <line x1="100" y1="84" x2="160" y2="66" stroke="#C5A059" stroke-width="2.5" />
+                  <circle cx="160" cy="84" r="4.5" fill="#111111" stroke="#C5A059" stroke-width="2" />
+                  <line x1="160" y1="84" x2="230" y2="84" stroke="#C5A059" stroke-width="2.5" />
+                  <text x="25" y="104" fill="#888" font-size="11" font-family="monospace">13 (NO)</text>
+                  <text x="235" y="104" fill="#888" font-size="11" font-family="monospace">14 (NO)</text>
+
+                  <!-- Actuator Link -->
+                  <line x1="130" y1="24" x2="130" y2="76" stroke="#C50100" stroke-width="2" stroke-dasharray="3,3" />
+                  <polygon points="130,20 126,28 134,28" fill="#C50100" />
+                  <text x="270" y="58" fill="#C50100" font-size="10.5" font-weight="700">POSITIVE OPENING</text>
+                  <text x="270" y="74" fill="#777" font-size="10">Snap-Action Galv. Isolated</text>
+                </svg>
+              </div>
+              <div class="schematic-notes">
+                <div class="schematic-note-item">
+                  <strong>Terminal Torque:</strong> 0.8 Nm (M3.5 captive clamping screws)
+                </div>
+                <div class="schematic-note-item">
+                  <strong>Conductor Size:</strong> 0.5 mm² – 1.5 mm² solid or finely stranded copper
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Pane 3: CAD & Mounting -->
+          <div class="modal-tab-pane" id="pane-dimensions" style="display: none;">
+            <div class="blueprint-card">
+              <div class="blueprint-spec-grid">
+                <div class="blueprint-item">
+                  <span class="bp-label">Enclosure Standard:</span>
+                  <strong class="bp-val">DIN EN 50041 / DIN EN 50047</strong>
+                </div>
+                <div class="blueprint-item">
+                  <span class="bp-label">Mounting Centers:</span>
+                  <strong class="bp-val">30 mm × 60 mm (M5 standard)</strong>
+                </div>
+                <div class="blueprint-item">
+                  <span class="bp-label">Conduit Entry:</span>
+                  <strong class="bp-val">M20 × 1.5 / Pg 13.5 Industrial</strong>
+                </div>
+                <div class="blueprint-item">
+                  <span class="bp-label">Actuator Head:</span>
+                  <strong class="bp-val">4 × 90° user-repositionable</strong>
+                </div>
+                <div class="blueprint-item">
+                  <span class="bp-label">Operating Travel:</span>
+                  <strong class="bp-val">Pre-travel: 1.8 mm | Total: 5.5 mm</strong>
+                </div>
+                <div class="blueprint-item">
+                  <span class="bp-label">Actuation Force:</span>
+                  <strong class="bp-val">Min. 15 N (Direct contact separation)</strong>
+                </div>
+              </div>
+              <div class="blueprint-download-row">
+                <span class="cad-ready-badge">CAD 2D / 3D STEP Models Available</span>
+                <button class="btn-outline cad-request-btn" data-action="open-inquiry">REQUEST 3D STEP MODEL</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Pane 4: Compliance & Approvals -->
+          <div class="modal-tab-pane" id="pane-standards" style="display: none;">
+            <div class="compliance-cards-grid">
+              <div class="compliance-card">
+                <div class="comp-icon">✓</div>
+                <h5>IEC / EN 60947-5-1</h5>
+                <p>Certified low-voltage electromechanical control circuit devices &amp; switching elements.</p>
+              </div>
+              <div class="compliance-card">
+                <div class="comp-icon">✓</div>
+                <h5>CE Machinery Directive</h5>
+                <p>Full compliance with Machinery Directive 2006/42/EC &amp; Low Voltage 2014/35/EU.</p>
+              </div>
+              <div class="compliance-card">
+                <div class="comp-icon">✓</div>
+                <h5>RoHS 3 (2015/863/EU)</h5>
+                <p>100% lead-free, environmentally sustainable materials and components.</p>
+              </div>
+              <div class="compliance-card">
+                <div class="comp-icon">✓</div>
+                <h5>ISO 9001:2015 Certified</h5>
+                <p>Manufactured under audited precision engineering quality management systems.</p>
+              </div>
+            </div>
           </div>
 
           <div class="modal-product-actions">
@@ -248,6 +365,25 @@ function initProductQuickView() {
         window.print();
       });
     }
+
+    // Hook engineering sub-tab switching
+    const tabPills = modalBody.querySelectorAll('.modal-tab-pill');
+    const tabPanes = modalBody.querySelectorAll('.modal-tab-pane');
+    tabPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const target = pill.getAttribute('data-spec-tab');
+        tabPills.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
+        pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
+
+        tabPanes.forEach(pane => {
+          pane.style.display = (pane.id === `pane-${target}`) ? 'block' : 'none';
+        });
+      });
+    });
 
     // Hook product-specific inquiry button
     const inqBtn = document.getElementById('modalInquireBtn');
@@ -374,6 +510,8 @@ function initProductFiltering() {
       if (searchInput) searchInput.value = '';
       searchQuery = '';
 
+      document.querySelectorAll('.spec-quicktag-btn').forEach(b => b.classList.remove('active'));
+
       activeCategory = 'all';
       filterTabs.forEach(t => {
         const isAll = t.getAttribute('data-category-filter') === 'all';
@@ -384,6 +522,27 @@ function initProductFiltering() {
       applyFilters();
     });
   }
+
+  // Quick Facet Filter Chips
+  const quicktagBtns = document.querySelectorAll('.spec-quicktag-btn');
+  quicktagBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag-filter');
+      const isAlreadyActive = btn.classList.contains('active');
+
+      quicktagBtns.forEach(b => b.classList.remove('active'));
+
+      if (isAlreadyActive) {
+        if (searchInput) searchInput.value = '';
+        searchQuery = '';
+      } else {
+        btn.classList.add('active');
+        if (searchInput) searchInput.value = tag;
+        searchQuery = tag;
+      }
+      applyFilters();
+    });
+  });
 }
 
 
