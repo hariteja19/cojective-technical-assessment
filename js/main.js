@@ -664,6 +664,20 @@ function initDealerSearch() {
     });
   });
 
+  // Handle click on interactive map pins
+  document.querySelectorAll('.hub-map-pin').forEach(pin => {
+    pin.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const region = pin.getAttribute('data-hub-region');
+      openModal('dealersModal');
+
+      const matchingPill = document.querySelector(`.region-pill[data-dealer-region="${region}"]`);
+      if (matchingPill) {
+        matchingPill.click();
+      }
+    });
+  });
+
   // Handle direct inquiry from a specific dealer card
   document.addEventListener('click', (e) => {
     const dealerBtn = e.target.closest('[data-action="inquire-dealer"]');

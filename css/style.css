@@ -4616,6 +4616,102 @@ body.drawer-open {
   box-shadow: 0 0 10px #10B981;
 }
 
+/* Interactive Regional Hub Pins */
+.hub-map-pin {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease;
+}
+
+.hub-map-pin:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  z-index: 20;
+}
+
+.hub-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent-gold);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(197, 160, 89, 0.8);
+  position: relative;
+  z-index: 2;
+}
+
+.hub-ping {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(197, 160, 89, 0.4);
+  animation: hubPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  z-index: 1;
+}
+
+@keyframes hubPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.hub-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: #111111;
+  color: #FFFFFF;
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 30;
+}
+
+.hub-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #111111 transparent transparent transparent;
+}
+
+.hub-tooltip strong {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--color-accent-gold);
+}
+
+.hub-tooltip span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.hub-map-pin:hover .hub-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* Modals with Rounded Corners */
 .modal-dialog {
   border-radius: 24px !important;

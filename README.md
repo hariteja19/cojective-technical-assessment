@@ -24,20 +24,36 @@ The entire user experience and visual language has been upgraded to a luxury edi
    - **Floating Discovery Card**: Bottom-right card with thumbnail preview for Pan-India dealer access
    - **Floating Scroll Button**: Centered downward scroll pill button with bouncy micro-animation
 
-3. **Products Showcase with Pill Filters & Circular Action Buttons**:
+3. **Products Showcase with Pill Filters, Live Search & Quick Facets**:
    - Rounded luxury product cards (`border-radius: 24px`) with soft layered drop shadows
    - Pill category badges (`INDUCTIVE SENSING`, `MECHANICAL SWITCHING`, `MACHINE POSITIONING`)
    - Circular arrow action buttons (`.btn-circle-arrow`) with 45-degree hover rotation
    - Interactive pill filter tabs (`.fairway-filter-pill`) for instant category switching without page reloads
+   - **Real-Time Parameter & Keyword Search**: Zero-latency searching across titles, categories, tags, voltages, IP ratings, and pin configurations with an animated clear button and empty-state fallback
+   - **Quick-Facet Engineering Parameter Chips**: Instant filter pills (`IP67 Waterproof`, `IP68 Submersible`, `24V DC`, `230V AC`, `Snap-Action`, `M12 Standard`)
    - Interactive zero-latency 3D perspective mouse tilt on product cards
    - Full keyboard accessibility (`Enter` / `Space` triggers modal with accessible `:focus-visible` indicators)
 
-4. **Interactive Modals Engine**:
-   - **Product Specification Quick-View**: High-res visual, dynamic per-product engineering parameter pills, full technical specifications table, and direct inquiry CTA
+4. **Advanced Engineering Modal & CAD Suite**:
+   - **Interactive 4-Tab Engineering Portal in Quick-View**:
+     * **Parameters**: Complete engineering specifications matrix
+     * **Wiring & Schematics**: Vector-drawn electrical contact circuit diagram (IEC 60947-5-1 standard, NC 11-12 & NO 13-14 snap-action forced opening schematic, terminal torque, and wire cross-section notes)
+     * **CAD & Mounting**: DIN EN 50041/50047 standard dimensions, 30×60mm mounting centers, M20 conduit entry, and one-click "Request 3D STEP Model" action
+     * **Compliance & Approvals**: IEC/EN 60947-5-1, CE Machinery Directive, RoHS 3 lead-free certification, and ISO 9001:2015 audit details
+   - **Printable Engineering Datasheet**: "PRINT DATASHEET" modal button paired with custom `@media print` styles that output crisp A4 spec sheets stripping non-print UI
+   - **Side-by-Side Equipment Comparison Matrix**: Pill checkbox on cards (`+ Compare` / `✓ Compare`), persistent floating bottom comparison dock (up to 3 items), and benchmark matrix modal with direct quote actions
    - **Engineering Consultation Drawer**: Interactive consultation form with real-time field validation, pre-filled product/dealer queries, and success feedback
-   - **Pan-India Dealer Directory**: Searchable directory of 12 authorized distributors across major industrial hubs (Mumbai, Pune, Bengaluru, Chennai, Hyderabad, Delhi NCR, Faridabad, Ludhiana, Ahmedabad, Vadodara, Coimbatore, Kolkata) with live search input, regional filters, and one-click dispatch inquiry
+   - **Pan-India Dealer Directory & Interactive Map Pins**: Searchable directory of 12 authorized distributors across major industrial hubs with pulsing geographic map pins on the distribution globe that open the directory pre-filtered to the chosen region
 
-5. **Editorial Rounded Cards Across All Sections**:
+5. **Technical Knowledge Base & Reference Suite**:
+   - **Technical FAQ Accordion**: Categorized answers (`STANDARDS`, `INTEGRATION`, `MECHANICAL`, `LOGISTICS`) addressing European retrofitting, coolant resilience, Annex K safety interlocks, and custom multi-switch configs
+   - **Ingress Protection (IP Code) Reference Tool**: Interactive selector for `IP65`, `IP67`, `IP68`, and `IP69K` detailing dust/fluid protection standards, operating machine environments, and recommended TEKNIC series
+
+6. **Industrial Blueprint Dark Theme Switcher**:
+   - Luxury pill toggle in header and mobile drawer (`[ ☾ Blueprint ]` / `[ ☀ Editorial ]`)
+   - High-contrast CAD aesthetic with obsidian background (`#080C14`), slate surfaces (`#0E1422`), warm brass accents (`#C5A059`), and persistent `localStorage` preference memory
+
+7. **Editorial Rounded Cards Across All Sections**:
    - Journey & stats frosted card with live counter animation (`35+ Years`, `1989 Established`, `500+ Clients`)
    - Rounded media layouts for About, Why Teknic Euchner, Applications, and Quality sections
    - Context-aware *Playfair Display* editorial italic serif accents across all major section headlines

@@ -575,12 +575,59 @@ window.TEKNIC_COMPONENTS = {
 
             <button class="btn-primary fairway-pill-btn dealer-cta-btn" data-action="open-dealers">${data.cta.label}</button>
           </div>
-          <div class="dealer-right-col" data-action="open-dealers" title="Click to view Pan-India dealer locations">
+          <div class="dealer-right-col" title="Explore regional Indian logistics hubs">
             <div class="dealer-globe-wrap">
               <img src="${data.globeImage.src}" alt="${data.globeImage.alt}">
-              <div class="dealer-globe-overlay-pill">
+
+              <!-- Interactive Regional Hub Pins -->
+              <div class="hub-map-pin pin-delhi" data-hub-region="north" data-hub-city="Delhi-NCR" style="top: 26%; left: 34%;" title="Delhi-NCR & Faridabad Hub">
+                <span class="hub-ping"></span>
+                <span class="hub-dot"></span>
+                <div class="hub-tooltip">
+                  <strong>Delhi-NCR Hub</strong>
+                  <span>North Hub • 24h Dispatch</span>
+                </div>
+              </div>
+
+              <div class="hub-map-pin pin-mumbai" data-hub-region="west" data-hub-city="Mumbai" style="top: 52%; left: 24%;" title="Mumbai & Pune Hub">
+                <span class="hub-ping"></span>
+                <span class="hub-dot"></span>
+                <div class="hub-tooltip">
+                  <strong>Mumbai &amp; Pune Hub</strong>
+                  <span>West Hub • Full Range Stock</span>
+                </div>
+              </div>
+
+              <div class="hub-map-pin pin-bengaluru" data-hub-region="south" data-hub-city="Bengaluru" style="top: 74%; left: 38%;" title="Bengaluru & Chennai Hub">
+                <span class="hub-ping"></span>
+                <span class="hub-dot"></span>
+                <div class="hub-tooltip">
+                  <strong>Bengaluru &amp; Chennai</strong>
+                  <span>South Hub • CNC Automation</span>
+                </div>
+              </div>
+
+              <div class="hub-map-pin pin-ahmedabad" data-hub-region="west" data-hub-city="Ahmedabad" style="top: 44%; left: 20%;" title="Gujarat GIDC Hub">
+                <span class="hub-ping"></span>
+                <span class="hub-dot"></span>
+                <div class="hub-tooltip">
+                  <strong>Gujarat GIDC Hub</strong>
+                  <span>Ahmedabad &amp; Vadodara</span>
+                </div>
+              </div>
+
+              <div class="hub-map-pin pin-kolkata" data-hub-region="east" data-hub-city="Kolkata" style="top: 50%; left: 66%;" title="Eastern Industrial Hub">
+                <span class="hub-ping"></span>
+                <span class="hub-dot"></span>
+                <div class="hub-tooltip">
+                  <strong>Eastern Industrial Hub</strong>
+                  <span>Kolkata &amp; Steel Belts</span>
+                </div>
+              </div>
+
+              <div class="dealer-globe-overlay-pill" data-action="open-dealers">
                 <span class="pulse-ring"></span>
-                <span>Click to Open Interactive Directory</span>
+                <span>Click to Open Full Directory (12 Hubs)</span>
               </div>
             </div>
           </div>
